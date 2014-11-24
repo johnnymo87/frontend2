@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 var React = window.React = require('react'),
     Timer = require("./ui/Timer"),
     mountNode = document.getElementById("app");
@@ -7,9 +5,9 @@ var React = window.React = require('react'),
 var TodoList = React.createClass({
   render: function() {
     var createItem = function(itemText) {
-      return <li>{itemText}</li>;
+      return React.DOM.li(null, itemText);
     };
-    return <ul>{this.props.items.map(createItem)}</ul>;
+    return React.DOM.ul(null, this.props.items.map(createItem));
   }
 });
 var TodoApp = React.createClass({
@@ -27,19 +25,19 @@ var TodoApp = React.createClass({
   },
   render: function() {
     return (
-      <div>
-        <h3>TODO</h3>
-        <TodoList items={this.state.items} />
-        <form onSubmit={this.handleSubmit}>
-          <input onChange={this.onChange} value={this.state.text} />
-          <button>{'Add #' + (this.state.items.length + 1)}</button>
-        </form>
-        <Timer />
-      </div>
+      React.DOM.div(null, [
+        React.DOM.h3(null, 'TODO'),
+        TodoList({items: this.state.items}),
+        React.DOM.form({onSubmit: this.handleSubmit}, [
+          React.DOM.input({onChange: this.onChange, value: this.state.text}, ""),
+          React.DOM.button(null, ('Add #' + (this.state.items.length + 1)))
+        ]),
+        Timer()
+      ])
     );
   }
 });
 
 
-React.renderComponent(<TodoApp />, mountNode);
+React.renderComponent(TodoApp(), mountNode);
 

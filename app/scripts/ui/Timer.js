@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react');
 
 var Timer = React.createClass({
@@ -16,7 +15,7 @@ var Timer = React.createClass({
   },
   render: function() {
     return (
-      <div>Seconds Elapsed: {this.state.secondsElapsed}</div>
+      React.DOM.div(null, "Seconds Elapsed: ", this.state.secondsElapsed)
     );
   }
 });

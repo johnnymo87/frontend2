@@ -1,5 +1,3 @@
-/** @jsx React.DOM */
-
 jest.dontMock('../Timer');
 
 describe('Timer', function () {
@@ -9,7 +7,7 @@ describe('Timer', function () {
     var timer = null;
 
     beforeEach(function () {
-        timer = TestUtils.renderIntoDocument(<Timer/>);
+        timer = TestUtils.renderIntoDocument(Timer());
     });
 
     it('increments seconds elapsed with each tick', function () {
