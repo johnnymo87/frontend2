@@ -9,7 +9,8 @@ var path = require('path');
 
 // Load plugins
 var $ = require('gulp-load-plugins')();
-var browserify = require('browserify');
+var browserify = require('gulp-browserify');
+var rename = require('gulp-rename');
 var source = require('vinyl-source-stream');
 
 
@@ -44,10 +45,13 @@ gulp.task('coffee', function () {
 
 // Scripts
 gulp.task('scripts', function () {
-    return browserify('./app/scripts/app.js')
-            .bundle()
-            .pipe(source('app.js'))
-            .pipe(gulp.dest('dist/scripts'))
+  gulp.src('./app/scripts/app.coffee', { read: false })
+  .pipe(browserify({
+    transform: ['coffeeify'],
+    extensions: ['.coffee']
+  }))
+  .pipe(rename('app.js'))
+  .pipe(gulp.dest('dist/scripts'))
 });
 
 
